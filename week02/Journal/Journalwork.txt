@@ -1,0 +1,21 @@
+Main
+Display - Display the menu
+
+Journal - Store our list with journal entries.
+Save
+Display
+Load
+Add Entry
+
+Entries : List<Entry>
+File Name
+
+Entry - Display the entries
+Get Date
+Get Entry Text
+Get Prompt
+
+
+PromptGenerator - Abstract details from user prompts
+Generate Prompt 
+Prompt : List<string>
