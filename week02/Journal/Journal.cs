@@ -10,35 +10,53 @@ public class Journal
         {
             foreach (Entry entry in __entries)
             {
-                file.WriteLine(entry.__date);
-                file.WriteLine(entry.__prompt);
-                file.WriteLine(entry.__entry);
+                file.WriteLine($"{entry.__date}~{entry.__prompt}~{entry.__entry}");
             }
         }
+
+        Console.WriteLine("Journal Saved");
     }
+
     public void Load(String file_name)
     {
-        String[] lines = System.IO.File.ReadAllLines(file_name);
+        try{
+            String[] lines = System.IO.File.ReadAllLines(file_name);
 
-        int index = 0;
-        foreach (String line in lines)
+            __entries.Clear();
+
+            int index = 0;
+            foreach (String line in lines)
+            {
+                String[] lineParts = line.Split("~");
+
+                Entry newEntry = new Entry();
+
+                newEntry.__date = lineParts[0];
+                newEntry.__prompt = lineParts[1];
+                newEntry.__entry = lineParts[2];
+
+                __entries.Add(newEntry);
+                index++;
+            }
+
+            Console.WriteLine("Journal Loaded");
+        }
+        catch (Exception ex)
         {
-            __entries[index].__date = line;
-            __entries[index].__prompt = line;
-            __entries[index].__entry = line;
-            index++;
+            Console.WriteLine($"Could not find file, \"{file_name}\".");
+            Console.WriteLine("Make sure you use the format, \"File Name.txt\"");
+            Console.WriteLine(ex.Message);
         }
     }
     public void Display()
     {
         foreach (Entry entry in __entries)
         {
-            Console.WriteLine($"[{entry.__date}] {entry.__prompt}");
-            Console.WriteLine(entry.__entry);
+            entry.Display();
         }
     }
     public void AddEntry(Entry entry)
     {
-        __entries.Append(entry);
+        __entries.Add(entry);
     }
 }
