@@ -1,0 +1,73 @@
+Abstraction is the process in which a programmer would break down parts of a complex program into
+smaller my manageable sizes. One benefit of Abstraction is that it can give a developer the ability to 
+better track the issues of a program. A way you can use this method would be to break up the program into separate
+classes and methods that will work together.
+
+
+Example:
+using System.IO;
+
+public class Journal
+{
+    public List<Entry> __entries = new List<Entry>();
+
+    public void Save(String file_name)
+    {
+        using(StreamWriter file = new StreamWriter(file_name))
+        {
+            foreach (Entry entry in __entries)
+            {
+                file.WriteLine($"{entry.__date}~{entry.__prompt}~{entry.__entry}");
+            }
+        }
+
+        Console.WriteLine("Journal Saved");
+    }
+
+    public void Load(String file_name)
+    {
+        try{
+            String[] lines = System.IO.File.ReadAllLines(file_name);
+
+            __entries.Clear();
+
+            int index = 0;
+            foreach (String line in lines)
+            {
+                String[] lineParts = line.Split("~");
+
+                Entry newEntry = new Entry();
+
+                newEntry.__date = lineParts[0];
+                newEntry.__prompt = lineParts[1];
+                newEntry.__entry = lineParts[2];
+
+                __entries.Add(newEntry);
+                index++;
+            }
+
+            Console.WriteLine("Journal Loaded");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Could not find file, \"{file_name}\".");
+            Console.WriteLine("Make sure you use the format, \"File Name.txt\"");
+            Console.WriteLine(ex.Message);
+        }
+    }
+    public void Display()
+    {
+        foreach (Entry entry in __entries)
+        {
+            entry.Display();
+        }
+    }
+    public void AddEntry(Entry entry)
+    {
+        __entries.Add(entry);
+    }
+}
+
+By breaking up the functionality of a journal into a separate class with its own methods, I can better read what this program is meant to do. In addition, I can be able
+to fix any issues with the program here so any other classes that call this class do not need to be modified. This can save a lot of time when being part of much 
+larger projects, and you do not have enough time or resources to correct any issues with parts of the program that run this kind of program.
