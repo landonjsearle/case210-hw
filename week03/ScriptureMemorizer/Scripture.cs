@@ -1,10 +1,10 @@
-public class Stripture
+public class Scripture
 {
     private Reference _reference;
     private List<Words> _words = new List<Words>();
-    
 
-    public Stripture(Reference reference, String text)
+
+    public Scripture(Reference reference, String text)
     {
         _reference = reference;
 
@@ -20,11 +20,21 @@ public class Stripture
 
     public void HideRandomWords(int numberToHide)
     {
+        int numberOfWords = _words.Count;
+        Random random = new Random();
 
-        Console.WriteLine($"Hiding {numberToHide} words.");
+        //Console.WriteLine($"Hiding {numberToHide} words.");
         for (int i = 0; i < numberToHide; i++)
         {
-            _words[i].Hide();
+            int hide = random.Next(0, numberOfWords);
+            if (_words[hide].IsHidden())
+            {
+                i--;
+            }
+            else
+            {
+                _words[hide].Hide();
+            }
         }
     }
 

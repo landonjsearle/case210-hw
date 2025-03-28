@@ -32,7 +32,7 @@ public class Words
         }
         else 
         {
-            wordReturn = _Word; 
+            wordReturn = _Word + " "; 
         }
 
         return wordReturn;
