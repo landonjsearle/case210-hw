@@ -8,7 +8,8 @@ class Program
         Console.WriteLine("Hello World! This is the ScriptureMemorizer Project.");
 
         /*
-            Added program to check to see if the word is already hidden.
+            Exceedxs Requrements:
+            Added a part to the program to check to see if the word is already hidden when the program trys to hide a word.
         */
         
         Reference reference= new Reference("1 Nephi", 1, 1);
