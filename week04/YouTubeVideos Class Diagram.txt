@@ -6,7 +6,8 @@ Class Video
 
     Constructors
         Video(String author, String title, int length)
-        Video(String author, String title, int length, Comment comments)
+        Video(String author, String title, int length, Comment comment)
+        Video(String author, String title, int length, List<Comment> comments)
 
     int ReturnCommentNumber()
     void AddComment(Comment comment)
