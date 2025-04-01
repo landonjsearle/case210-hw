@@ -3,14 +3,13 @@ public class Video
     private String _author;
     private String _title;
     private int _length;
-    List<Comment> _comments;
+    List<Comment> _comments = new List<Comment>();
 
     public Video(String author, String title, int length)
     {
         _author = author;
         _title = title;
         _length = length;
-        _comments = new List<Comment>();
     }
     public Video(String author, String title, int length, Comment comment)
     {
