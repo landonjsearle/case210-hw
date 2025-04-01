@@ -1,0 +1,55 @@
+Class Product
+    String _name
+    int _productID
+    float _price
+    int _quantity
+
+    Constructors
+        Product(String name, int id, float price)
+        Product(String name, int id, float price, int quantity)
+
+    float CalculateTotalCost()
+    String GetName()
+    Void SetName(String name)
+    int GetProductID()
+    Void SetProductID(int id)
+    float GetPrice()
+    void SetPrice(float price)
+    int GetQuantity()
+    void setQuantity(int ammount)
+
+
+Class Customer
+    String _name
+    Address _address
+
+    Customer(String name, Address address)
+
+    Boolean LivesInUSA()
+    void SetAddress(Address address) // Give program the ability to change customer address
+
+
+
+Class Address
+    String _street
+    String _city
+    String _state
+    String _country
+
+    Address(String street, String city, String state, String country)
+
+    String GetDisplayAll()
+    String GetCountry()
+
+
+Class Order
+    List<Product> _products
+    List<Customer> _customers
+
+    Order()
+
+    void AddProduct(Product product)
+    Void AddCustomer(Customer customer)
+    float CalculateTotalCost(float shippingCost)
+    String GetPackingLabel()
+    String GetShippingLabel()

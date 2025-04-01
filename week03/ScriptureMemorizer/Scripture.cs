@@ -24,6 +24,8 @@ public class Scripture
         Random random = new Random();
 
         //Console.WriteLine($"Hiding {numberToHide} words.");
+
+        // This will check to see if the word is hidden or not. It will tell the program to keep looping until it finds a sutable word
         for (int i = 0; i < numberToHide; i++)
         {
             int hide = random.Next(0, numberOfWords);

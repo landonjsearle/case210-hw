@@ -1,0 +1,28 @@
+Class Video
+    String _author
+    String _title
+    int _length // In seconds
+    List<Comment> _comments
+
+    Constructors
+        Video(String author, String title, int length)
+        Video(String author, String title, int length, Comment comments)
+
+    int ReturnCommentNumber()
+    void AddComment(Comment comment)
+    String GetDisplay()
+    String GetAuthor()
+    String GetTitle()
+    int GetLength()
+
+
+
+Class Comment
+    String _name
+    String _text
+
+    Comment(String name, String text)
+
+    String DisplayComment()
+    String GetName()
+    String GetText()
