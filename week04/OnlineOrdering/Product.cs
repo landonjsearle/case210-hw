@@ -2,16 +2,16 @@ public class Product
 {
     private String _name;
     private int _productID;
-    private float _price;
+    private double _price;
     private int _quantity;
 
-    public Product(String name, int id, float price)
+    public Product(String name, int id, double price)
     {
         _name = name;
         _productID = id;
         _price = price;
     }
-    public Product(String name, int id, float price, int quantity)
+    public Product(String name, int id, double price, int quantity)
     {
         _name = name;
         _productID = id;
@@ -19,9 +19,9 @@ public class Product
         _quantity = quantity;        
     }
 
-    public float CalculateTotalCost()
+    public double CalculateTotalCost()
     {
-        float cost = _price * (float)_quantity;
+        double cost = _price * (double)_quantity;
 
         return cost;
     }
@@ -41,11 +41,11 @@ public class Product
     {
         _productID = productID;
     }
-    public float GetPrice()
+    public double GetPrice()
     {
         return _price;
     }
-    public void SetPrice(float price)
+    public void SetPrice(double price)
     {
         _price = price;
     }
