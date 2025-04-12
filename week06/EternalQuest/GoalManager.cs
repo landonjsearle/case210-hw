@@ -52,6 +52,10 @@ public class GoalManager
             {
                 done = true;
             }
+            else 
+            {
+                Console.WriteLine($"Invaled response: {response}.");
+            }
         } while(!done);
 
     }
@@ -65,6 +69,7 @@ public class GoalManager
         foreach (Goal goal in _goals)
         {
             Console.WriteLine($"{count}. {goal.GetName()}");
+            count++;
         }
 
     }
@@ -96,11 +101,13 @@ public class GoalManager
 
         if (response == "1")
         {
-            SimpleGoal newgoal = new SimpleGoal(name, description, shards);
+            SimpleGoal newGoal = new SimpleGoal(name, description, shards);
+            _goals.Add(newGoal);
         }
         else if (response == "2")
         {
-            EternalGoal newgoal = new EternalGoal(name, description, shards);
+            EternalGoal newGoal = new EternalGoal(name, description, shards);
+            _goals.Add(newGoal);
         }
         else if (response == "3")
         {
@@ -112,6 +119,7 @@ public class GoalManager
             int bonusInt = StringToIntCheck(bonus);
 
             ChecklistGoal newGoal = new ChecklistGoal(name, description, shards, targetInt, bonusInt);
+            _goals.Add(newGoal);
         }
 
     }
@@ -163,17 +171,17 @@ public class GoalManager
 
             if (goalType.Equals("SimpleGoal"))
             {
-                SimpleGoal newgoal = new SimpleGoal(goalStrings[0], goalStrings[1], goalStrings[2]);
-                _goals.Add(newgoal);
+                SimpleGoal newGoal = new SimpleGoal(goalStrings[0], goalStrings[1], goalStrings[2]);
+                _goals.Add(newGoal);
             }
             else if (goalType.Equals("EternalGoal"))
             {
-                EternalGoal newgoal = new EternalGoal(goalStrings[0], goalStrings[1], goalStrings[2]);
-                _goals.Add(newgoal);
+                EternalGoal newGoal = new EternalGoal(goalStrings[0], goalStrings[1], goalStrings[2]);
+                _goals.Add(newGoal);
             }
             else if (goalType.Equals("ChecklistGoal"))
             {
-                ChecklistGoal newgoal = new ChecklistGoal(goalStrings[0], goalStrings[1], goalStrings[2], int.Parse(goalStrings[3]), int.Parse(goalStrings[4]));
+                ChecklistGoal newGoal = new ChecklistGoal(goalStrings[0], goalStrings[1], goalStrings[2], int.Parse(goalStrings[3]), int.Parse(goalStrings[4]));
             }
             else
             {
@@ -195,7 +203,7 @@ public class GoalManager
                     Console.WriteLine("Please enter a valid number: ");
                     number = Console.ReadLine();
                 }
-                numberInt = StringToIntCheck(number);
+                numberInt = int.Parse(number);
                 pass = true;
             }
             catch (Exception)
