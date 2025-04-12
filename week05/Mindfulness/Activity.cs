@@ -22,7 +22,7 @@ public class Activity
     public void ShowSpinner(int seconds)
     {
 
-        Console.WriteLine("Working...");
+        // Console.WriteLine("Working...");
         List<String> spinChar = new List<string>();
         spinChar.Add("|");
         spinChar.Add("/");

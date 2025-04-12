@@ -4,11 +4,7 @@ public class BreathingActivity : Activity
     {
         base.SetActivtyName("Breathing Activity");
         base.SetDescription("In this activity you will inhale for 4 seconds through your nose, and exhale for mouth for 6 seconds.");
-    }
-    public void Run()
-    {
-        Console.WriteLine(GetStartMessage());
-
+        
         Boolean passed = false;
         do
         {
@@ -20,11 +16,15 @@ public class BreathingActivity : Activity
                 SetDuration(Convert.ToInt16(line));
                 passed = true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.WriteLine("You need to put in a number in seconds!");
             }
         } while (passed == false);
+    }
+    public void Run()
+    {
+        Console.WriteLine(GetStartMessage());
 
         DateTime startTime = DateTime.Now;
         DateTime endTime = startTime.AddSeconds(GetDuration());
