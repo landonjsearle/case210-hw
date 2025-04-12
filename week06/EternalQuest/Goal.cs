@@ -30,4 +30,9 @@ public abstract class Goal
         return details;
     }
     public abstract String GetStringRepresentation();
+
+    public String GetShards()
+    {
+        return _shards;
+    }
 }

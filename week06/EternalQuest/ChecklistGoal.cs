@@ -17,11 +17,21 @@ public class ChecklistGoal : Goal
     }
     public override bool IsComplete()
     {
-        throw new NotImplementedException();
+        if (_amountCompleted == _target)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     public override String GetDetailsString()
     {
-        throw new NotImplementedException();
+        String details = "";
+        details += base.GetDetailsString();
+        details += $" --- {_amountCompleted}/{_target} | Bonus: {_bonus}";
+        return details;
     }
     public override String GetStringRepresentation()
     {

@@ -9,7 +9,8 @@ public class SimpleGoal : Goal
 
     public override void RecordEvent()
     {
-        _isComplete = true;        
+        _isComplete = true;      
+        Console.WriteLine($"Comgrats! You have won {_shards} shards!");
     }
     public override bool IsComplete()
     {

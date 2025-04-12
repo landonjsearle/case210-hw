@@ -7,15 +7,16 @@ public class EternalGoal : Goal
 
     public override void RecordEvent()
     {
-        throw new NotImplementedException();
-
+        Console.WriteLine($"Congrats! You won {_shards} Shards!");
     }
     public override bool IsComplete()
     {
-        throw new NotImplementedException();
+        return false; // This goal will never be completed
     }
     public override string GetStringRepresentation()
     {
-        throw new NotImplementedException();
+        String code = "EternalGoal:";
+        code += $"{_shortName}~{_description}~{_shards}";
+        return code;
     }
 }

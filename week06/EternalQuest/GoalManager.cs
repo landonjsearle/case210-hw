@@ -1,6 +1,6 @@
 public class GoalManager
 {
-    protected int _score;
+    private int _score;
     private List<Goal> _goals = new List<Goal>();
 
     public GoalManager()
