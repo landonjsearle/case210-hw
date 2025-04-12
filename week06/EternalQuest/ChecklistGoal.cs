@@ -13,7 +13,12 @@ public class ChecklistGoal : Goal
 
     public override void RecordEvent()
     {
-        throw new NotImplementedException();
+        _amountCompleted++;
+        Console.WriteLine($"Congrats you won {_shards} Shards!");
+        if (_amountCompleted == _target)
+        {
+            Console.WriteLine($"Amazing! For competing this goal you won {_bonus} bonus Shards!");
+        }
     }
     public override bool IsComplete()
     {

@@ -35,4 +35,8 @@ public abstract class Goal
     {
         return _shards;
     }
+    public String GetName()
+    {
+        return _shortName;
+    }
 }
