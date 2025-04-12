@@ -12,7 +12,47 @@ public class GoalManager
 
     public void Start()
     {
-        throw new NotImplementedException();
+
+        bool done = false;
+
+        do
+        {
+            DisplayPlayerInfo();
+            Console.WriteLine();
+            Console.WriteLine("What do you want to do?");
+            Console.WriteLine("1. Create New Goal");
+            Console.WriteLine("2. List Goals");
+            Console.WriteLine("3. Save Goals");
+            Console.WriteLine("4. Load Goals");
+            Console.WriteLine("5. Record Event");
+            Console.WriteLine("6. Quit");
+            String response = Console.ReadLine();
+
+            if (response == "1")
+            {
+                CreateGoal();
+            }
+            else if (response == "2")
+            {
+                ListGoalDetails();
+            }
+            else if (response == "3")
+            {
+                SaveGoals();
+            }
+            else if (response == "4")
+            {
+                LoadGoals();
+            }
+            else if(response == "5")
+            {
+                RecordEvent();
+            }
+            else if (response == "6")
+            {
+                done = true;
+            }
+        } while(!done);
 
     }
     public void DisplayPlayerInfo()
@@ -96,13 +136,50 @@ public class GoalManager
     }
     public void SaveGoals()
     {
-        throw new NotImplementedException();
-
+        Console.WriteLine("Please enter a file name: ");
+        String filename = Console.ReadLine();
+        using (StreamWriter outputFile = new StreamWriter(filename))
+        {
+            outputFile.WriteLine(_score);
+            foreach (Goal goal in _goals)
+            {
+                outputFile.WriteLine(goal.GetStringRepresentation());
+            }
+        }
     }
     public void LoadGoals()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Please enter a file name: ");
+        String filename = Console.ReadLine();
+        String[] lines = System.IO.File.ReadAllLines(filename);
+        _score = int.Parse(lines[0]);
+        
+        foreach (String line in lines)
+        {
+            String[] parts = line.Split(":");
+            String goalType = parts[0];
+            String[] goalStrings = parts[1].Split("~");
 
+
+            if (goalType.Equals("SimpleGoal"))
+            {
+                SimpleGoal newgoal = new SimpleGoal(goalStrings[0], goalStrings[1], goalStrings[2]);
+                _goals.Add(newgoal);
+            }
+            else if (goalType.Equals("EternalGoal"))
+            {
+                EternalGoal newgoal = new EternalGoal(goalStrings[0], goalStrings[1], goalStrings[2]);
+                _goals.Add(newgoal);
+            }
+            else if (goalType.Equals("ChecklistGoal"))
+            {
+                ChecklistGoal newgoal = new ChecklistGoal(goalStrings[0], goalStrings[1], goalStrings[2], int.Parse(goalStrings[3]), int.Parse(goalStrings[4]));
+            }
+            else
+            {
+                Console.WriteLine("ERROR!!! GOAL NOT FOUND!");
+            }
+        }
     }
 
     private int StringToIntCheck(String number)
