@@ -2,6 +2,11 @@ using System.Formats.Tar;
 
 public class GoalManager
 {
+
+    /******************************************************************************
+    Added a part to this program for the exceeds expectionatons that will check to
+    see if the goal is already complete. If so it will tell you and not reward you.
+    ******************************************************************************/
     private int _score;
     private List<Goal> _goals = new List<Goal>();
 
@@ -65,6 +70,7 @@ public class GoalManager
     }
     public void ListGoalNames()
     {
+        Console.WriteLine();
         int count = 1;
         foreach (Goal goal in _goals)
         {
@@ -75,10 +81,12 @@ public class GoalManager
     }
     public void ListGoalDetails()
     {
+        Console.WriteLine();
         int count = 1;
         foreach (Goal goal in _goals)
         {
             Console.WriteLine($"{count}. {goal.GetDetailsString()}");
+            count++;
         }
 
     }
@@ -118,7 +126,7 @@ public class GoalManager
             String bonus = Console.ReadLine();
             int bonusInt = StringToIntCheck(bonus);
 
-            ChecklistGoal newGoal = new ChecklistGoal(name, description, shards, targetInt, bonusInt);
+            ChecklistGoal newGoal = new ChecklistGoal(name, description, shards, targetInt, 0, bonusInt);
             _goals.Add(newGoal);
         }
 
@@ -131,10 +139,18 @@ public class GoalManager
         Console.Write($"Enter a number between 1 and {numberOfGoals}: ");
         String response = Console.ReadLine();
         int responseInt = StringToIntCheck(response);
-        if (responseInt > 0 && responseInt < numberOfGoals)
+        if (responseInt > 0 && responseInt <= numberOfGoals)
         {
             int index = responseInt - 1;
-            _goals[index].RecordEvent();
+            if (_goals[index].IsComplete())
+            {
+                Console.WriteLine("You have already finished this goal.");
+            }
+            else
+            {
+                _goals[index].RecordEvent();
+                _score += int.Parse(_goals[index].GetShards());
+            }
         }
         else
         {
@@ -159,35 +175,47 @@ public class GoalManager
     {
         Console.WriteLine("Please enter a file name: ");
         String filename = Console.ReadLine();
-        String[] lines = System.IO.File.ReadAllLines(filename);
-        _score = int.Parse(lines[0]);
-        
-        foreach (String line in lines)
+        String[] lines;
+        try
         {
-            String[] parts = line.Split(":");
-            String goalType = parts[0];
-            String[] goalStrings = parts[1].Split("~");
+            lines = System.IO.File.ReadAllLines(filename);
+            _score = int.Parse(lines[0]);
+            foreach (String line in lines.Skip(1))
+            {
+                String[] parts = line.Split(":");
+                String goalType = parts[0];
+                String[] goalStrings = parts[1].Split("~");
 
 
-            if (goalType.Equals("SimpleGoal"))
-            {
-                SimpleGoal newGoal = new SimpleGoal(goalStrings[0], goalStrings[1], goalStrings[2]);
-                _goals.Add(newGoal);
-            }
-            else if (goalType.Equals("EternalGoal"))
-            {
-                EternalGoal newGoal = new EternalGoal(goalStrings[0], goalStrings[1], goalStrings[2]);
-                _goals.Add(newGoal);
-            }
-            else if (goalType.Equals("ChecklistGoal"))
-            {
-                ChecklistGoal newGoal = new ChecklistGoal(goalStrings[0], goalStrings[1], goalStrings[2], int.Parse(goalStrings[3]), int.Parse(goalStrings[4]));
-            }
-            else
-            {
-                Console.WriteLine("ERROR!!! GOAL NOT FOUND!");
+                if (goalType.Equals("SimpleGoal"))
+                {
+                    SimpleGoal newGoal = new SimpleGoal(goalStrings[0], goalStrings[1], goalStrings[2]);
+                    bool compete = bool.Parse(goalStrings[3]);
+                    newGoal.SetComplete(compete);
+                    _goals.Add(newGoal);
+                }
+                else if (goalType.Equals("EternalGoal"))
+                {
+                    EternalGoal newGoal = new EternalGoal(goalStrings[0], goalStrings[1], goalStrings[2]);
+                    _goals.Add(newGoal);
+                }
+                else if (goalType.Equals("ChecklistGoal"))
+                {
+                    ChecklistGoal newGoal = new ChecklistGoal(goalStrings[0], goalStrings[1], goalStrings[2], int.Parse(goalStrings[4]), int.Parse(goalStrings[3]), int.Parse(goalStrings[5]));
+                    _goals.Add(newGoal);
+                }
+                else
+                {
+                    Console.WriteLine("ERROR!!! GOAL NOT FOUND!");
+                }
             }
         }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("File not found.");
+        }
+        
+        
     }
 
     private int StringToIntCheck(String number)

@@ -1,0 +1,4 @@
+72
+SimpleGoal:teeth~brush teeth~1~True
+EternalGoal:Readd book~reed me books~10
+ChecklistGoal:Ice Cream~Eat Ice Cream~5~10~10~100

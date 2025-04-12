@@ -31,7 +31,7 @@ public abstract class Goal
     }
     public abstract String GetStringRepresentation();
 
-    public String GetShards()
+    public virtual String GetShards()
     {
         return _shards;
     }

@@ -22,4 +22,8 @@ public class SimpleGoal : Goal
         code += $"{_shortName}~{_description}~{_shards}~{_isComplete}";
         return code;
     }
+    public void SetComplete(bool complete)
+    {
+        _isComplete = complete;
+    }
 }
