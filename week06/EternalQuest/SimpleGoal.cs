@@ -9,8 +9,7 @@ public class SimpleGoal : Goal
 
     public override void RecordEvent()
     {
-        throw new NotImplementedException();
-        
+        _isComplete = true;        
     }
     public override bool IsComplete()
     {
