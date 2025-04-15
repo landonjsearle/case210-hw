@@ -1,0 +1,177 @@
+1. Abstaction
+This is the method where someone will brake down an idea into parts to make it easier to understand.
+I used this methodology in week 1 on my exccersize 5 project:
+    static void DisplayWelcome()
+    {
+        Console.WriteLine("Hello, Welcome to your program");
+    }
+
+    static String PromptUserName()
+    {
+        Console.WriteLine("What is your name? ");
+        return Console.ReadLine();
+    }
+
+    static int PromptUserNumber()
+    {
+        Console.WriteLine("What is your favorite number? ");
+        return int.Parse(Console.ReadLine());
+    }
+I broke down my program into parts (methods) to ask the user and then display the information. This can make it easier in the 
+furture to make changes in to the program where I want the messges returned to be a little more different, and have more repeatablity
+in my code without having to copy and paste it through out my program.
+
+
+
+2. Encapsulation
+With this you will store something to make it more orginized. You would use this in programming by putting a object and its 
+functionality into a seperate class. I then can keep it seperate to functionality of the base program. In my week 2 Journal Project I 
+did this by identifying the Journal and Entry are different entites, so I put them into different classes.
+public class Entry
+{
+    public String __entry;
+    public String __date;
+    public String __prompt;
+
+    public void Display()
+    {
+        Console.WriteLine($"[{__date}] {__prompt}");
+        Console.WriteLine(__entry);
+    }
+}
+public class Journal
+{
+    public List<Entry> __entries = new List<Entry>();
+
+    public void Save(String file_name)
+    {
+        using(StreamWriter file = new StreamWriter(file_name))
+        {
+            foreach (Entry entry in __entries)
+            {
+                file.WriteLine($"{entry.__date}~{entry.__prompt}~{entry.__entry}");
+            }
+        }
+
+        Console.WriteLine("Journal Saved");
+    ....
+This helps me be albe to make changes to the functionality of the Journal and Entry without having to find and change every instance
+in the program. In addition, it imporves my reuseablity in the class allowing me to be able to use it in another program to save time.
+
+
+
+3. Inheritance
+This is the abbilty for a related object to inherit something from the parent. In programming, a parent or super class is able to be
+made with the functionality of the base object and transfer those properties to any children class that are related. I used this in my 
+week 5 HomeWork Project by creating a parent class Assignment, and two children classes to repeat functionality that both classes need
+to share: 
+public class Assignment
+{
+    private String _studentName;
+    private String _topic;
+
+    public Assignment(String studentName, String topic)
+    {
+        _studentName = studentName;
+        _topic = topic;
+    }
+
+    public String GetSummary()
+    {
+        return _studentName + " - " + _topic;
+    }
+
+    public String GetName()
+    {
+        return _studentName;
+    }
+}
+
+ublic class MathAssignment : Assignment
+{
+    private String _textBookSection;
+    private String _MathProblems;
+
+    public MathAssignment(String name, String topic, String textBookSection, String mathProblems) : base(name, topic)
+    {
+        _textBookSection = textBookSection;
+        _MathProblems = mathProblems;
+    }
+    ....
+
+    public class WrittingAssignment : Assignment
+{
+    private String _title;
+
+    public WrittingAssignment(String name, String topic, String title) : base(name, topic)
+    {
+        _title = title;
+    }
+
+    public String GetWrittingInfo()
+    {
+        return $"{_title} by {GetName()}";
+    }
+}
+With this I didn't have to repeat the shared functionality in each program. Furthermore, it gave me the abbilty to be able to make
+needed changes to the parent class and all of the children classes that used it will aslo reflect those changes.
+
+
+
+5. Polymorphism
+This is one of the most intresing methods I learned in this course for I didn't know it exsisted. It means that something has the
+abbilty to change one's self into something else. This used in programming allows a class to be able to change it's functionality 
+depending on the context it is called. In my week 6 Eternal Quest project I used this to be able to make parent Goal class and its
+children Goal classes. 
+ublic abstract class Goal
+{
+    protected String _shortName;
+    protected String _description;
+    protected String _shards;
+
+    public Goal(String name, String description, String shards)
+    {
+        _shortName = name;
+        _description = description;
+        _shards = shards;
+    }
+
+    public abstract void RecordEvent();
+    .....
+
+public class SimpleGoal : Goal
+{
+    private bool _isComplete;
+
+    public SimpleGoal(String name, String description, String shards) : base(name, description, shards)
+    {
+        _isComplete = false;
+    }
+
+    public override void RecordEvent()
+    {
+        _isComplete = true;      
+        Console.WriteLine($"Comgrats .....
+
+public class EternalGoal : Goal
+{
+    public EternalGoal(String name, String description, String shards) : base(name, description, shards)
+    {
+
+    }
+
+    public override void RecordEvent()
+    {
+        Console.WriteLine($"Congrats! You won {_shards} Shards!");
+    }
+    public override bool IsComplete()
+    {
+        return false; // This goal will never be completed
+    }
+    public override string GetStringRepresentation()
+    {
+        String code = "EternalGoal:";
+        .....
+By using a combination of abstract classes and methods, I was able to create the same method name in different classes to 
+be able to make changes in the functionality that fits the specific class. Also, it gave me the abbilty to be able to use a for
+loop to iterate through the goals by makeing a Goal List.
